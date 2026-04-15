@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artist Otto de Booij</title>
+<link rel="preload" href="fonts/yeezy_tstar-bold.ttf" as="font" type="font/ttf" crossorigin>
+
+<style>
+:root{
+  --pink:#ff00ff;
+  --green:#39ff14;
+  --dark:#0b0b0b;
+
+  /* Ausstellungen: "feste" Zielhöhe (max) */
+  --expo-maxh-desktop: 520px;
+  --expo-maxh-mobile: 340px;
+}
+
+body{
+  margin:0;
+  font-family:'Yeezy TStar Bold', Arial, sans-serif;
+  background:#fff;
+  color:#000;
+  line-height:1.6;
+  overflow-x:hidden;
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+  scroll-behavior:smooth;
+}
+
+/* Schriftart einbinden */
+@font-face{
+  font-family:'Yeezy TStar Bold';
+  src:url('fonts/yeezy_tstar-bold.ttf') format('truetype');
+  font-weight:normal;
+  font-style:normal;
+  font-display:swap;
+}
+
+/* Keyframes */
+@keyframes neonPulse{
+  0%{ text-shadow:0 0 5px var(--pink),0 0 10px #ff66ff,0 0 15px var(--pink); }
+  50%{ text-shadow:0 0 10px var(--pink),0 0 20px #ff66ff,0 0 30px var(--pink); }
+  100%{ text-shadow:0 0 5px var(--pink),0 0 10px #ff66ff,0 0 15px var(--pink); }
+}
+@keyframes neonFlow{
+  0%{ background-position:0% center; }
+  100%{ background-position:200% center; }
+}
+
+/* Header */
+header{
+  text-align:center;
+  padding:2rem;
+  font-size:2.5rem;
+  font-weight:bold;
+  color:var(--green);
+  text-shadow:0 0 10px var(--green);
+}
+
+/* Bio */
+.bio{
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  gap:2rem;
+  padding:2rem;
+  border-bottom:2px solid #222;
+  flex-wrap:wrap;
+}
+.bio img{
+  width:225px;
+  height:225px;
+  border-radius:50%;
+  border:3px solid var(--pink);
+  box-shadow:0 0 10px var(--pink);
+  object-fit:cover;
+  flex-shrink:0;
+}
+.bio-text{ max-width:600px; }
+.bio-text h2{
+  margin:0 0 .5rem 0;
+  font-size:2rem;
+  color:var(--green);
+  text-shadow:0 0 8px var(--green);
+}
+.bio-text p{
+  margin:0;
+  color:var(--pink);
+  text-shadow:0 0 3px var(--pink);
+  line-height:1.6;
+}
+.highlight-quote{ text-shadow:0 0 5px var(--pink); font-style:italic; }
+.highlight-orange{ font-weight:bold; text-shadow:0 0 8px orange; color:orange; }
+
+/* NAV */
+nav.site-nav{
+  position:sticky; top:0; z-index:9999;
+  background:transparent;
+  border-bottom:none;
+  backdrop-filter:blur(6px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:.6rem 1rem;
+}
+.nav-brand{
+  font-family:'Yeezy TStar Bold', sans-serif;
+  letter-spacing:.5px;
+  font-weight:700;
+  color:var(--green);
+  text-shadow:0 0 6px var(--green);
+}
+
+/* Burger */
+.nav-burger{
+  width:32px; height:24px;
+  position:relative;
+  display:block;
+  background:transparent;
+  border:0;
+  cursor:pointer;
+}
+.nav-burger span{
+  position:absolute; left:0; right:0;
+  height:3px;
+  background:var(--pink);
+  box-shadow:0 0 8px rgba(255,0,255,.6);
+  transform-origin:left center;
+  transition:transform .25s ease, opacity .25s ease;
+}
+.nav-burger span:nth-child(1){ top:0; }
+.nav-burger span:nth-child(2){ top:10px; }
+.nav-burger span:nth-child(3){ top:20px; }
+
+/* Overlay Menü */
+.menu-overlay{
+  position:fixed; inset:0;
+  background:rgba(255,255,255,.85);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .25s ease, visibility .25s ease;
+  z-index:20000;
+}
+.menu-overlay.open{ opacity:1; visibility:visible; }
+.menu-content{ text-align:center; }
+.menu-content a{
+  display:block;
+  font-size:2.2rem;
+  margin:1rem 0;
+  font-family:'Yeezy TStar Bold', sans-serif;
+  color:#111;
+  text-decoration:none;
+  letter-spacing:.4px;
+}
+.menu-content a::after{
+  content:'';
+  display:block;
+  margin:.5rem auto 0;
+  width:0; height:2px;
+  background:linear-gradient(90deg, var(--green), var(--pink));
+  transition:width .25s ease;
+}
+.menu-content a:hover::after{ width:60%; }
+
+/* Sections */
+section.page-section{ padding:2rem 1rem; }
+section[id]{ scroll-margin-top:72px; }
+.page-offset{ height:.5rem; }
+.app-section{ display:none; }
+.app-section.active{ display:block; }
+
+.section-card{
+  max-width:1100px;
+  margin:0 auto;
+  padding:1.25rem;
+  border:2px solid rgba(57,255,20,.45);
+  border-radius:12px;
+  background:rgba(255,255,255,.85);
+  box-shadow:0 0 18px rgba(57,255,20,.18), 0 0 24px rgba(255,0,255,.12);
+  backdrop-filter:blur(4px);
+}
+.section-card h2, .section-card h3{
+  font-family:'Yeezy TStar Bold', sans-serif;
+  letter-spacing:.4px;
+  margin-top:0;
+  color:#111;
+  text-shadow:none;
+}
+.section-hint{
+  font-family:'Yeezy TStar Bold', sans-serif;
+  color:var(--pink);
+  opacity:.9;
+  margin-top:.5rem;
+}
+
+/* ===== Masonry Grid ===== */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  grid-auto-rows:10px;
+  gap:1rem;
+  padding:1rem;
+}
+
+/* Desktop: mehr Rand links/rechts (weniger "reingezoomt" im Gesamteindruck) */
+@media (min-width: 1100px){
+  .grid{
+    max-width:1500px;
+    margin-left:auto;
+    margin-right:auto;
+    padding-left:2.5rem;
+    padding-right:2.5rem;
+  }
+}
+
+.tile{
+  position:relative;
+  cursor:pointer;
+  overflow:hidden;
+  border-radius:5px;
+  transition:transform .3s ease, box-shadow .3s ease;
+  background:#fff;
+}
+.tile img{
+  width:100%;
+  display:block;
+  height:auto;
+  object-fit:cover;
+}
+.tile:hover{
+  transform:scale(1.03);
+  box-shadow:0 0 20px rgba(255,0,255,.8);
+}
+@media (max-width:768px){
+  .grid{ grid-template-columns:1fr; }
+}
+
+/* Overlay Text */
+.overlay{
+  position:absolute;
+  bottom:0; left:0; right:0;
+  padding:1rem;
+  font-family:'Yeezy TStar Bold', sans-serif;
+  font-size:2rem;
+  text-align:center;
+  opacity:0;
+  transition:opacity .3s ease;
+  text-shadow:0 0 5px var(--pink),0 0 10px #ff66ff,0 0 15px var(--pink);
+  animation:neonPulse 2s ease-in-out infinite, neonFlow 3s linear infinite;
+  background:linear-gradient(90deg, var(--pink), #ff66ff, var(--pink));
+  background-clip:text;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-size:200% auto;
+}
+.tile:hover .overlay{ opacity:1; }
+
+/* SOLD Overlay */
+.sold{
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  font-family:'Yeezy TStar Bold', sans-serif;
+  font-size:4rem;
+  color:var(--pink);
+  text-shadow:0 0 10px var(--pink), 0 0 20px #ff33ff, 0 0 40px var(--pink);
+  pointer-events:none;
+  opacity:.9;
+  z-index:2;
+}
+.sold-overlay{
+  position:absolute; inset:0;
+  background:rgba(255,0,255,.25);
+  border-radius:5px;
+  z-index:1;
+  pointer-events:none;
+}
+
+/* Footer Row */
+.footer-row{
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  gap:1rem;
+  padding:1rem;
+  flex-wrap:nowrap;
+}
+.footer-row .tile{
+  flex:1 1 calc(33.333% - .66rem);
+  max-width:calc(33.333% - .66rem);
+}
+.footer-row .tile img{
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  display:block;
+}
+@media (max-width:768px){
+  .footer-row{ flex-wrap:wrap; }
+  .footer-row .tile{ flex:1 1 100%; max-width:100%; }
+}
+
+/* ===== MEHR Trigger ===== */
+.more-trigger-wrap{
+  display:flex;
+  justify-content:center;
+  padding:1rem 1rem 0;
+}
+.more-trigger{
+  width:min(520px, 92vw);
+  border:2px solid rgba(57,255,20,.45);
+  background:rgba(255,255,255,.85);
+  box-shadow:0 0 18px rgba(57,255,20,.18), 0 0 24px rgba(255,0,255,.12);
+  border-radius:14px;
+  padding:1.2rem 1.2rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.9rem;
+}
+.more-trigger:hover{
+  box-shadow:0 0 26px rgba(255,0,255,.25), 0 0 26px rgba(57,255,20,.22);
+}
+.more-trigger .more-icon{
+  width:44px; height:44px;
+  border-radius:12px;
+  border:2px solid var(--pink);
+  display:grid;
+  place-items:center;
+  background:#fff;
+  box-shadow:0 0 14px rgba(255,0,255,.18);
+}
+.more-trigger .more-text{
+  font-family:'Yeezy TStar Bold', sans-serif;
+  font-size:1.5rem;
+  letter-spacing:.4px;
+  color:#111;
+}
+.more-trigger .more-sub{
+  font-family:'Yeezy TStar Bold', sans-serif;
+  font-size:1rem;
+  color:var(--pink);
+  opacity:.95;
+  margin-top:.15rem;
+}
+
+/* ===== Lightbox Einzelwerk ===== */
+.lightbox{
+  display:none;
+  position:fixed; inset:0;
+  background:rgba(255,255,255,.9);
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:1000;
+  font-family:'Yeezy TStar Bold', sans-serif;
+}
+.lightbox-content{
+  text-align:center;
+  color:#000;
+  max-width:90%;
+  max-height:90%;
+  overflow-y:auto;
+  padding:1rem;
+  border-radius:10px;
+}
+.lightbox img{
+  max-width:80vw;
+  max-height:70vh;
+  border-radius:8px;
+  margin-bottom:1rem;
+  box-shadow:0 0 25px rgba(255,0,255,.4);
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+.lightbox h2{
+  margin:.5rem 0;
+  font-size:2rem;
+  color:var(--green);
+  text-shadow:0 0 5px var(--green),0 0 10px var(--green),0 0 20px var(--green);
+  animation:neonPulse 2s ease-in-out infinite;
+}
+.lightbox p{ margin:.3rem 0; font-size:1rem; color:#000; }
+.lightbox-divider{
+  width:60%;
+  height:1px;
+  background-color:var(--pink);
+  margin:1rem auto;
+}
+.lightbox-close{
+  position:absolute;
+  top:20px; right:30px;
+  font-size:3rem;
+  color:var(--pink);
+  cursor:pointer;
+  transition:transform .2s ease;
+}
+.lightbox-close:hover{ transform:scale(1.2); color:#000; }
+
+/* ===== Sammel-Lightbox ===== */
+.more-lightbox{
+  display:none;
+  position:fixed; inset:0;
+  background:rgba(255,255,255,.92);
+  z-index:1200;
+  font-family:'Yeezy TStar Bold', sans-serif;
+}
+.more-lightbox.open{ display:flex; }
+.more-lightbox-inner{
+  width:min(1100px, 94vw);
+  margin:auto;
+  border:2px solid rgba(255,0,255,.45);
+  border-radius:16px;
+  background:rgba(255,255,255,.9);
+  box-shadow:0 0 26px rgba(255,0,255,.18), 0 0 22px rgba(57,255,20,.14);
+  backdrop-filter:blur(4px);
+  padding:1rem;
+  max-height:88vh;
+  display:flex;
+  flex-direction:column;
+}
+.more-lightbox-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  padding:.25rem .25rem .75rem;
+}
+.more-lightbox-title{
+  font-size:1.6rem;
+  color:#111;
+  letter-spacing:.4px;
+}
+.more-lightbox-close{
+  cursor:pointer;
+  font-size:2.6rem;
+  line-height:1;
+  color:var(--pink);
+  text-shadow:0 0 10px rgba(255,0,255,.25);
+}
+.more-lightbox-close:hover{ color:#000; }
+
+/* Sammel Grid */
+.more-grid{
+  overflow:auto;
+  max-height:76vh;
+  padding:0;
+}
+.more-grid .tile{
+  border:2px solid rgba(57,255,20,.25);
+}
+
+/* ===== AUSSTELLUNGEN ===== */
+.expos-wrapper{ max-width:1100px; margin:0 auto; padding:1rem; }
+.expo-year-group{ margin:1.2rem 0 2rem; }
+.expo-year-heading{
+  font-size:clamp(1.8rem, 3.5vw, 2.4rem);
+  margin:0 0 1rem;
+  letter-spacing:.4px;
+  color:#111;
+  display:flex; align-items:center; gap:.6rem;
+}
+.expo-year-heading::after{
+  content:""; flex:1; height:2px;
+  background:linear-gradient(90deg, var(--green), var(--pink));
+  opacity:.25;
+}
+.expo-card{
+  border:2px solid rgba(57,255,20,.35);
+  border-radius:16px;
+  background:rgba(255,255,255,.9);
+  box-shadow:0 0 18px rgba(57,255,20,.18), 0 0 22px rgba(255,0,255,.12);
+  backdrop-filter:blur(4px);
+  padding:1rem;
+  margin:.9rem 0 1.25rem;
+}
+.expo-title{
+  margin:.25rem 0 .75rem;
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:.6rem;
+  line-height:1.2;
+}
+.expo-title .name{
+  font-size:clamp(1.2rem, 2.8vw, 1.6rem);
+  font-weight:800;
+  color:#111;
+}
+.expo-title .year{
+  font-size:clamp(1.1rem, 2.6vw, 1.5rem);
+  font-weight:800;
+  color:var(--pink);
+}
+.expo-meta{
+  margin:.25rem 0 .75rem;
+  opacity:.9;
+  font-family:Arial, sans-serif;
+}
+.expo-card .expo-title,
+.expo-card .expo-carousel,
+.expo-card .expo-body{
+  width: min(100%, 770px);
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* Ausstellung: Höhe wird per JS pro Bild gesetzt, aber mit Max (wirkt "fest") */
+.expo-carousel{
+  position:relative;
+  overflow:hidden;
+  border:2px solid var(--pink);
+  border-radius:10px;
+  width:100%;
+  background:transparent;
+  max-height:var(--expo-maxh-desktop);
+}
+@media (max-width: 768px){
+  .expo-carousel{ max-height:var(--expo-maxh-mobile); }
+}
+.expo-track{ display:flex; transition:transform .35s ease; height:100%; }
+.expo-item{ min-width:100%; height:100%; user-select:none; }
+.expo-item img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  margin:0;
+  border:0;
+  image-orientation: from-image;
+}
+.expo-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:#111;
+  border:2px solid var(--green);
+  color:var(--green);
+  font-weight:800;
+  border-radius:10px;
+  padding:.35rem .6rem;
+  cursor:pointer;
+  z-index:5;
+  opacity:.95;
+}
+.expo-btn.prev{ left:8px; }
+.expo-btn.next{ right:8px; }
+.expo-btn:hover{ opacity:1; }
+.expo-body p{ font-family:Arial, sans-serif; margin:.2rem 0 0; }
+
+
+.auction-grid{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:1.25rem;
+  align-items:start;
+}
+.auction-card{
+  border:2px solid rgba(255,0,255,.35);
+  border-radius:16px;
+  padding:1rem;
+  background:rgba(255,255,255,.92);
+  box-shadow:0 0 20px rgba(255,0,255,.12), 0 0 18px rgba(57,255,20,.12);
+}
+.auction-image{
+  width:100%;
+  border-radius:12px;
+  border:2px solid var(--pink);
+  display:block;
+  margin-bottom:1rem;
+}
+.auction-meta{
+  font-family:Arial, sans-serif;
+  font-size:.98rem;
+  display:grid;
+  gap:.35rem;
+  margin:.75rem 0 1rem;
+}
+.auction-price{
+  font-size:2rem;
+  color:var(--green);
+  text-shadow:0 0 8px var(--green);
+  margin:.3rem 0;
+}
+.auction-timer{
+  font-size:1.15rem;
+  color:var(--pink);
+  margin:.2rem 0 1rem;
+}
+.auction-note{
+  font-family:Arial, sans-serif;
+  font-size:.95rem;
+  color:#222;
+}
+.auction-status{
+  display:inline-block;
+  padding:.35rem .7rem;
+  border-radius:999px;
+  background:#111;
+  color:var(--green);
+  border:1px solid var(--green);
+  margin-bottom:.9rem;
+}
+.bid-list{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:grid;
+  gap:.65rem;
+  max-height:420px;
+  overflow:auto;
+}
+.bid-list li{
+  border:1px solid rgba(0,0,0,.12);
+  border-radius:10px;
+  padding:.7rem .8rem;
+  font-family:Arial, sans-serif;
+  background:#fff;
+}
+.bid-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  font-weight:700;
+}
+.bid-time{
+  font-size:.85rem;
+  opacity:.75;
+  margin-top:.25rem;
+}
+.auction-actions{
+  display:flex;
+  gap:.75rem;
+  flex-wrap:wrap;
+  margin-top:.8rem;
+}
+.ghost-btn{
+  padding:.75rem 1rem;
+  border-radius:10px;
+  border:2px solid var(--pink);
+  background:#fff;
+  color:#111;
+  cursor:pointer;
+  font-weight:700;
+}
+.ghost-btn:hover{ box-shadow:0 0 12px rgba(255,0,255,.18); }
+.form-feedback{
+  font-family:Arial, sans-serif;
+  min-height:1.4em;
+  color:var(--pink);
+  margin-top:.4rem;
+}
+.notice-box{
+  font-family:Arial, sans-serif;
+  border:1px solid rgba(0,0,0,.12);
+  border-radius:10px;
+  padding:.8rem .9rem;
+  background:#fff;
+  margin-top:1rem;
+}
+@media (max-width: 900px){
+  .auction-grid{ grid-template-columns:1fr; }
+}
+
+
+/* ===== Formular ===== */
+.buy-form{ max-width:720px; margin:0 auto; display:grid; gap:.8rem; }
+.buy-form label{ font-weight:600; color:var(--pink); }
+.buy-form input, .buy-form textarea, .buy-form select{
+  width:100%;
+  padding:.7rem;
+  border-radius:8px;
+  border:1px solid #444;
+  background:#0f0f0f;
+  color:#fff;
+}
+.buy-form button{
+  padding:.8rem 1rem;
+  border-radius:10px;
+  border:2px solid var(--green);
+  background:#111;
+  color:var(--green);
+  font-weight:700;
+  cursor:pointer;
+}
+.buy-form button:hover{ box-shadow:0 0 12px rgba(57,255,20,.4); }
+
+/* ===== Impressum ===== */
+.impressum{
+  padding:2rem;
+  background:#111;
+  color:#fff;
+  font-family:Arial, sans-serif;
+  font-size:.9rem;
+  line-height:1.6;
+  border-top:2px solid var(--green);
+}
+.impressum h2{
+  color:var(--green);
+  font-size:1.8rem;
+  margin-bottom:1rem;
+  text-shadow:0 0 8px var(--green);
+}
+.impressum p{ margin-bottom:1rem; }
+.impressum a{
+  color:var(--pink);
+  text-decoration:none;
+  transition:color .3s ease;
+}
+.impressum a:hover{
+  color:#ff66ff;
+  text-decoration:underline;
+}
+</style>
+</head>
+
+<body>
+
+<div class="menu-overlay" id="menu-overlay">
+  <div class="menu-content">
+    <a href="#" data-target="highlights">Highlights</a>
+    <a href="#" data-target="auktion">Auktion</a>
+    <a href="#" data-target="ausstellungen">Ausstellungen</a>
+    <a href="#" data-target="kontakt">Kontakt</a>
+    <a href="#" data-target="kaufen">Arbeit kaufen</a>
+    <a href="#" data-target="agb">AGB</a>
+    <a href="#" data-target="datenschutz">Datenschutz</a>
+  </div>
+</div>
+
+<nav class="site-nav">
+  <div class="nav-brand">OTTO DE BOOIJ</div>
+  <button class="nav-burger" id="nav-burger" aria-label="Menü">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page-offset"></div>
+
+<section id="highlights" class="page-section app-section">
+  <header>OTTO DE BOOIJ</header>
+
+  <section class="bio">
+    <img src="IMAGE/SMALL/ICH.jpg" alt="Profilbild" loading="eager" fetchpriority="high" decoding="async">
+    <div class="bio-text">
+      <h2>Otto de Booij</h2>
+      <p>
+        Versucht mit Ach und Krach die Düsternis aus der Kunst zu vertreiben.<br>
+        <span class="highlight-quote">„Düsternis ist einfach.“</span><br>
+        <span class="highlight-orange">In seiner neusten Reihe</span> versucht er den Wert von Individuen zu erfassen und dem Spekulieren über Massentrends ein Ende zu setzen.<br>
+        <span class="highlight-orange">DISCLAIMER: Alle hier angegeben Bildbeschreibungen und Gedankengänge zum Werk entstammen ChatGPT</span>
+      </p>
+    </div>
+  </section>
+
+  <div class="grid" id="grid-top">
+    <div class="tile" onclick="openLightbox('TOLLWUT','240 x 100cm','Acryl auf Leinwand','2025','TOLLWUT wirkt wie ein überdrehtes Warnsignal: grell, laut und trotzdem präzise gesetzt – als hätte die Leinwand kurz Fieber bekommen.','IMAGE/TOLLWUT.png')">
+      <picture>
+        <source srcset="IMAGE/thumbs/TOLLWUT.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="IMAGE/SMALL/TOLLWUT.png 600w, IMAGE/COMPRESSED/TOLLWUT.png 1200w, IMAGE/TOLLWUT.png 2000w" media="(min-width: 769px)">
+        <img src="IMAGE/COMPRESSED/TOLLWUT.png" alt="TOLLWUT" loading="lazy" decoding="async">
+      </picture>
+      <div class="overlay">TOLLWUT</div>
+    </div>
+
+    <div class="tile" onclick="openLightbox('MII','240 x 100cm','Acryl auf Leinwand','2025','MII liest sich wie ein Kürzel aus einem System, das niemand ganz versteht – zwischen Signal, Störung und strengem Rhythmus.','IMAGE/MII.png')">
+      <picture>
+        <source srcset="IMAGE/thumbs/MII.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="IMAGE/SMALL/MII.png 600w, IMAGE/COMPRESSED/MII.png 1200w, IMAGE/MII.png 2000w" media="(min-width: 769px)">
+        <img src="IMAGE/COMPRESSED/MII.png" alt="MII" loading="lazy" decoding="async">
+      </picture>
+      <div class="overlay">MII</div>
+    </div>
+
+    <div class="tile" onclick="openLightbox('ALIENS','240 x 100cm','Acryl auf Leinwand','2025','ALIENS ist weniger Sci‑Fi als Alltag im Ausnahmezustand: Figuren/Zeichen tauchen auf, als wären sie immer schon da gewesen.','IMAGE/ALIENS.png')">
+      <picture>
+        <source srcset="IMAGE/thumbs/ALIENS.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="IMAGE/SMALL/ALIENS.png 600w, IMAGE/COMPRESSED/ALIENS.png 1200w, IMAGE/ALIENS.png 2000w" media="(min-width: 769px)">
+        <img src="IMAGE/COMPRESSED/ALIENS.png" alt="ALIENS" loading="lazy" decoding="async">
+      </picture>
+      <div class="overlay">ALIENS</div>
+    </div>
+
+    <div class="tile" onclick="openLightbox('OTTOSMOPS','240 x 100cm','Acryl auf Leinwand','2025','OTTOSMOPS kippt Humor in die Fläche: ein Motiv, das erst niedlich tut und dann plötzlich ernst wird.','IMAGE/OTTOSMOPS.png')">
+      <picture>
+        <source srcset="IMAGE/thumbs/OTTOSMOPS.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="IMAGE/SMALL/OTTOSMOPS.png 600w, IMAGE/COMPRESSED/OTTOSMOPS.png 1200w, IMAGE/OTTOSMOPS.png 2000w" media="(min-width: 769px)">
+        <img src="IMAGE/COMPRESSED/OTTOSMOPS.png" alt="OTTOSMOPS" loading="lazy" decoding="async">
+      </picture>
+      <div class="overlay">OTTOSMOPS</div>
+    </div>
+
+    <div class="tile" onclick="openLightbox('BAER','240 x 100cm','Acryl auf Leinwand','2025','BAER steht wie ein Totem im Bild: präsent, direkt, und trotzdem mit einer seltsamen Zärtlichkeit in der Oberfläche.','IMAGE/BAER.png')">
+      <picture>
+        <source srcset="IMAGE/thumbs/BAER.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="IMAGE/SMALL/BAER.png 600w, IMAGE/COMPRESSED/BAER.png 1200w, IMAGE/BAER.png 2000w" media="(min-width: 769px)">
+        <img src="IMAGE/COMPRESSED/BAER.png" alt="BAER" loading="lazy" decoding="async">
+      </picture>
+      <div class="overlay">BAER</div>
+    </div>
+
+    <div class="tile" onclick="openLightbox('JAEGER','240 x 100cm','Acryl auf Leinwand','2025','JAEGER wirkt wie eine Verfolgungsspur: Bewegung, Ziel und Zweifel liegen gleichzeitig auf der Oberfläche.','IMAGE/JAEGER.png')">
+      <picture>
+        <source srcset="IMAGE/thumbs/JAEGER.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="IMAGE/SMALL/JAEGER.png 600w, IMAGE/COMPRESSED/JAEGER.png 1200w, IMAGE/JAEGER.png 2000w" media="(min-width: 769px)">
+        <img src="IMAGE/COMPRESSED/JAEGER.png" alt="JAEGER" loading="lazy" decoding="async">
+      </picture>
+      <div class="overlay">JAEGER</div>
+    </div>
+
+    <div class="tile large" onclick="openLightbox('CHIAN','240 x 100cm','Acryl auf Leinwand','2024','CHIAN reflektiert die Komplexität urbaner Räume und Dynamik.','IMAGE/CHIAN.png')">
+      <picture>
+        <source srcset="IMAGE/thumbs/CHIAN.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="IMAGE/SMALL/CHIAN.png 600w, IMAGE/COMPRESSED/CHIAN.png 1200w, IMAGE/CHIAN.png 2000w" media="(min-width: 769px)">
+        <img src="IMAGE/COMPRESSED/CHIAN.png" alt="CHIAN" loading="lazy" decoding="async">
+      </picture>
+      <div class="overlay">CHIAN</div>
+      <div class="sold-overlay"></div>
+      <div class="sold">SOLD</div>
+    </div>
+
+    <div class="tile" onclick="openLightbox('BIGPA','240 x 100cm','Acryl auf Leinwand','2024','BIGPA zeigt den spannungsvollen Gegensatz von Tradition und Moderne.','IMAGE/BIGPA.png')">
+      <picture>
+        <source srcset="IMAGE/thumbs/BIGPA.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="IMAGE/SMALL/BIGPA.png 600w, IMAGE/COMPRESSED/BIGPA.png 1200w, IMAGE/BIGPA.png 2000w" media="(min-width: 769px)">
+        <img src="IMAGE/COMPRESSED/BIGPA.png" alt="BIGPA" loading="lazy" decoding="async">
+      </picture>
+      <div class="overlay">BIGPA</div>
+    </div>
+
+    <div class="tile" onclick="openLightbox('BUB','240 x 100cm','Acryl auf Leinwand','2024','BUB spielt mit Formen und Farben, die Kindheitserinnerungen wecken.','IMAGE/BUB.png')">
+      <picture>
+        <source srcset="IMAGE/thumbs/BUB.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="IMAGE/SMALL/BUB.png 600w, IMAGE/COMPRESSED/BUB.png 1200w, IMAGE/BUB.png 2000w" media="(min-width: 769px)">
+        <img src="IMAGE/COMPRESSED/BUB.png" alt="BUB" loading="lazy" decoding="async">
+      </picture>
+      <div class="overlay">BUB</div>
+    </div>
+
+    <div class="tile large" onclick="openLightbox('MALI','240 x 100cm','Acryl auf Leinwand','2024','MALI symbolisiert das Gleichgewicht zwischen Licht und Schatten im Alltag.','IMAGE/MALI.png')">
+      <picture>
+        <source srcset="IMAGE/thumbs/MALI.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="IMAGE/SMALL/MALI.png 600w, IMAGE/COMPRESSED/MALI.png 1200w, IMAGE/MALI.png 2000w" media="(min-width: 769px)">
+        <img src="IMAGE/COMPRESSED/MALI.png" alt="MALI" loading="lazy" decoding="async">
+      </picture>
+      <div class="overlay">MALI</div>
+    </div>
+
+    <div class="tile" onclick="openLightbox('kween','240 x 100cm','Acryl auf Leinwand','2024','kween stellt Fragen zu Identität und Selbstwahrnehmung.','IMAGE/kween.png')">
+      <picture>
+        <source srcset="IMAGE/thumbs/kween.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="IMAGE/SMALL/kween.png 600w, IMAGE/COMPRESSED/kween.png 1200w, IMAGE/kween.png 2000w" media="(min-width: 769px)">
+        <img src="IMAGE/COMPRESSED/kween.png" alt="kween" loading="lazy" decoding="async">
+      </picture>
+      <div class="overlay">kween</div>
+    </div>
+
+    <div class="tile" onclick="openLightbox('DAVEB','240 x 100cm','Acryl auf Leinwand','2024','DAVEB untersucht innere Konflikte des modernen Menschen.','IMAGE/DAVEB.png')">
+      <picture>
+        <source srcset="IMAGE/thumbs/DAVEB.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="IMAGE/SMALL/DAVEB.png 600w, IMAGE/COMPRESSED/DAVEB.png 1200w, IMAGE/DAVEB.png 2000w" media="(min-width: 769px)">
+        <img src="IMAGE/COMPRESSED/DAVEB.png" alt="DAVEB" loading="lazy" decoding="async">
+      </picture>
+      <div class="overlay">DAVEB</div>
+    </div>
+  </div>
+
+  <div class="footer-row">
+    <div class="tile" onclick="openLightbox('Schweini','240 x 100cm','Acryl auf Leinwand','2024','Schweini feiert die Schönheit des Alltäglichen.','IMAGE/Schweini.png')">
+      <picture>
+        <source media="(max-width: 768px)" type="image/webp" srcset="IMAGE/thumbs/Schweini.webp">
+        <source media="(min-width: 769px)"
+          srcset="IMAGE/SMALL/Schweini.png 800w, IMAGE/COMPRESSED/Schweini.png 1400w, IMAGE/Schweini.png 2400w"
+          sizes="(min-width:1600px) 2400px,(min-width:1200px) 1400px,800px">
+        <img src="IMAGE/COMPRESSED/Schweini.png" alt="Schweini" loading="lazy" decoding="async">
+      </picture>
+      <div class="overlay">Schweini</div>
+    </div>
+
+    <div class="tile" onclick="openLightbox('SCHWEINEFRESSENSCHWEINE','80 x 30cm','Fotodruck der Installation auf dem Bauernhof Melder','2025','Dieses Werk kritisiert Überfluss und Gier.','IMAGE/SCHWEINEFRESSENSCHWEINE.png')">
+      <picture>
+        <source media="(max-width: 768px)" type="image/webp" srcset="IMAGE/thumbs/SCHWEINEFRESSENSCHWEINE.webp">
+        <source media="(min-width: 769px)"
+          srcset="IMAGE/SMALL/SCHWEINEFRESSENSCHWEINE.png 800w, IMAGE/COMPRESSED/SCHWEINEFRESSENSCHWEINE.png 1400w, IMAGE/SCHWEINEFRESSENSCHWEINE.png 2400w"
+          sizes="(min-width:1600px) 2400px,(min-width:1200px) 1400px,800px">
+        <img src="IMAGE/COMPRESSED/SCHWEINEFRESSENSCHWEINE.png" alt="SCHWEINEFRESSENSCHWEINE" loading="lazy" decoding="async">
+      </picture>
+      <div class="overlay">SCHWEINEFRESSENSCHWEINE</div>
+    </div>
+
+    <div class="tile" onclick="openLightbox('SCHWEINEDRECK','240 x 100cm','Acryl/Schlamm/Kot/Sonstige Körperflüssigkeiten auf Leinwand','2024','SCHWEINEDRECK reflektiert Chaos und menschliche Natur.','IMAGE/SCHWEINEDRECK.png')">
+      <picture>
+        <source media="(max-width: 768px)" type="image/webp" srcset="IMAGE/thumbs/SCHWEINIDRECK.webp">
+        <source media="(min-width: 769px)"
+          srcset="IMAGE/SMALL/SCHWEINEDRECK.png 800w, IMAGE/COMPRESSED/SCHWEINEDRECK.png 1400w, IMAGE/SCHWEINEDRECK.png 2400w"
+          sizes="(min-width:1600px) 2400px,(min-width:1200px) 1400px,800px">
+        <img src="IMAGE/COMPRESSED/SCHWEINEDRECK.png" alt="SCHWEINEDRECK" loading="lazy" decoding="async">
+      </picture>
+      <div class="overlay">SCHWEINEDRECK</div>
+    </div>
+  </div>
+
+  <div class="more-trigger-wrap">
+    <div class="tile more-trigger" onclick="openMoreLightbox()" role="button" aria-label="Mehr Werke anzeigen">
+      <div class="more-icon" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+          <circle cx="6" cy="12" r="2" stroke="#ff00ff" stroke-width="2"/>
+          <circle cx="12" cy="12" r="2" stroke="#ff00ff" stroke-width="2"/>
+          <circle cx="18" cy="12" r="2" stroke="#ff00ff" stroke-width="2"/>
+        </svg>
+      </div>
+      <div>
+        <div class="more-text">MEHR</div>
+        <div class="more-sub">weitere Werke öffnen</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="more-lightbox" id="more-lightbox" aria-hidden="true">
+    <div class="more-lightbox-inner" role="dialog" aria-modal="true" aria-label="Weitere Werke">
+      <div class="more-lightbox-head">
+        <div class="more-lightbox-title">WEITERE WERKE</div>
+        <div class="more-lightbox-close" onclick="closeMoreLightbox()" aria-label="Schließen">&times;</div>
+      </div>
+
+      <div class="grid more-grid" id="more-grid">
+        <div class="tile" onclick="openLightbox('Papageno Blau','180 x 100cm','Acryl auf Leinwand','2024','Papageno Blau spielt mit Harmonie und Kontrasten.','IMAGE/PapagenoBlau.png'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/PapagenoBlau.png" alt="Papageno Blau" loading="lazy" decoding="async">
+          <div class="overlay">Papageno Blau</div>
+        </div>
+        <div class="tile" onclick="openLightbox('Kollege 1','65 x 65cm','Acryl auf Leinwand','2024','Kollege 1 zeigt das Zusammenspiel von Arbeit und Gemeinschaft.','IMAGE/Kollege1.png'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/Kollege1.png" alt="Kollege 1" loading="lazy" decoding="async">
+          <div class="overlay">Kollege 1</div>
+          <div class="sold-overlay"></div><div class="sold">SOLD</div>
+        </div>
+        <div class="tile" onclick="openLightbox('Verwunschener Garten','180 x 100cm','Acryl auf Leinwand','2024','Ein mystischer Garten, der Geheimnisse und Ruhe zugleich bietet.','IMAGE/VerwunschenerGarten.png'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/VerwunschenerGarten.png" alt="Verwunschener Garten" loading="lazy" decoding="async">
+          <div class="overlay">Verwunschener Garten</div>
+        </div>
+        <div class="tile" onclick="openLightbox('Authority No.10','65 x 65cm','Acryl auf Leinwand','2024','Authority No.10 reflektiert Machtstrukturen in der Gesellschaft.','IMAGE/Authority10.png'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/Authority10.png" alt="Authority No.10" loading="lazy" decoding="async">
+          <div class="overlay">Authority No.10</div>
+          <div class="sold-overlay"></div><div class="sold">SOLD</div>
+        </div>
+        <div class="tile" onclick="openLightbox('TAUBE','150 x 100cm','Acryl auf Leinwand','2024','TAUBE symbolisiert Frieden und Leichtigkeit.','IMAGE/TAUBE.png'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/TAUBE.png" alt="TAUBE" loading="lazy" decoding="async">
+          <div class="overlay">TAUBE</div>
+        </div>
+        <div class="tile" onclick="openLightbox('Authority No.36','65 x 65cm','Acryl auf Leinwand','2024','Authority No.36 untersucht soziale Hierarchien.','IMAGE/AUTHORITY1.png'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/AUTHORITY1.png" alt="Authority No.36" loading="lazy" decoding="async">
+          <div class="overlay">Authority No.36</div>
+        </div>
+        <div class="tile" onclick="openLightbox('Kollege 2','60 x 60cm','Acryl auf Leinwand','2024','Kollege 2 dokumentiert kollektive Arbeitsmomente.','IMAGE/Kollege2.png'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/Kollege2.png" alt="Kollege 2" loading="lazy" decoding="async">
+          <div class="overlay">Kollege 2</div>
+          <div class="sold-overlay"></div><div class="sold">SOLD</div>
+        </div>
+        <div class="tile" onclick="openLightbox('Stairway','40 x 30cm','Acryl auf Leinwand','2024','Stairway symbolisiert den Aufstieg und die Reise des Lebens.','IMAGE/Stairway.png'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/Stairway.png" alt="Stairway" loading="lazy" decoding="async">
+          <div class="overlay">Stairway</div>
+          <div class="sold-overlay"></div><div class="sold">SOLD</div>
+        </div>
+        <div class="tile" onclick="openLightbox('Ohne Titel','50 x 120cm','Acryl auf Leinwand','2024','Ohne Titel spielt mit Illusion und Magie.','IMAGE/Hokuspokus.png'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/Hokuspokus.png" alt="Ohne Titel" loading="lazy" decoding="async">
+          <div class="overlay">Ohne Titel</div>
+        </div>
+        <div class="tile" onclick="openLightbox('Apokalypse','100 x 100cm','Acryl auf Leinwand','2024','Apokalypse zeigt das Ende einer Ära und Neuanfang.','IMAGE/ApokalypseKopie.png'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/ApokalypseKopie.png" alt="Apokalypse" loading="lazy" decoding="async">
+          <div class="overlay">Apokalypse</div>
+        </div>
+        <div class="tile" onclick="openLightbox('Massivholzschreibtisch','100 x 180cm','Acryl auf Leinwand','2024','Massivholzschreibtisch als Symbol für Stabilität und Handwerk.','IMAGE/Massivholzschreibtisch.png'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/Massivholzschreibtisch.png" alt="Massivholzschreibtisch" loading="lazy" decoding="async">
+          <div class="overlay">Massivholzschreibtisch</div>
+        </div>
+        <div class="tile" onclick="openLightbox('Kermit Klein','120 x 70cm','Acryl auf Leinwand','2024','Kermit Klein als Zeichen von Wandel und Anpassung.','IMAGE/Frosch.jpeg'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/Frosch.jpeg" alt="Kermit Klein" loading="lazy" decoding="async">
+          <div class="overlay">Kermit Klein</div>
+          <div class="sold-overlay"></div><div class="sold">SOLD</div>
+        </div>
+        <div class="tile" onclick="openLightbox('DISCO','70 x 120cm','Acryl auf Leinwand','2024','DISCO erforscht Nachtleben und kollektive Ekstase.','IMAGE/DISCO.JPG'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/DISCO.JPG" alt="DISCO" loading="lazy" decoding="async">
+          <div class="overlay">DISCO</div>
+          <div class="sold-overlay"></div><div class="sold">SOLD</div>
+        </div>
+        <div class="tile" onclick="openLightbox('ZUCHT','30 x 60cm','Acryl auf Leinwand','2024','ZUCHT reflektiert Kontrolle und gesellschaftliche Erwartungen.','IMAGE/ZUCHT.png'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/ZUCHT.png" alt="ZUCHT" loading="lazy" decoding="async">
+          <div class="overlay">ZUCHT</div>
+          <div class="sold-overlay"></div><div class="sold">SOLD</div>
+        </div>
+        <div class="tile" onclick="openLightbox('Internetprostituierte','200 x 260cm','Acryl auf Leinwand','2024','Kritik an digitaler Gesellschaft und Konsummentalität.','IMAGE/Internetprostituierte.png'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/Internetprostituierte.png" alt="Internetprostituierte" loading="lazy" decoding="async">
+          <div class="overlay">Internetprostituierte</div>
+        </div>
+        <div class="tile" onclick="openLightbox('PIK DAME','180 x 80cm','Acryl auf Leinwand','2024','PIK DAME erforscht Nachtleben und kollektive Ekstase.','IMAGE/PikDame.png'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/PikDame.png" alt="PIK DAME" loading="lazy" decoding="async">
+          <div class="overlay">PIK DAME</div>
+          <div class="sold-overlay"></div><div class="sold">SOLD</div>
+        </div>
+        <div class="tile" onclick="openLightbox('To be continued...','Otto ist fleißig','Fortsetzung folgt','2024','Fortsetzung folgt','IMAGE/IMG_0300.jpeg'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/IMG_0300.jpeg" alt="To be continued..." loading="lazy" decoding="async">
+          <div class="overlay">To be continued...</div>
+        </div>
+        <div class="tile" onclick="openLightbox('AUTHORITY LEADS THE PEOPLE','300 x 200cm','Acryl auf Leinwand','2024','Dieses Werk wurde auf der Art Karlsruhe ausgestellt.','IMAGE/artbild2.png'); closeMoreLightbox();">
+          <img data-src="IMAGE/COMPRESSED/artbild2.png" alt="AUTHORITY LEADS THE PEOPLE" loading="lazy" decoding="async">
+          <div class="overlay">AUTHORITY LEADS THE PEOPLE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-close" onclick="closeLightbox()">&times;</div>
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="">
+      <h2 id="lightbox-title"></h2>
+      <p id="lightbox-size"></p>
+      <p id="lightbox-materials"></p>
+      <p id="lightbox-year"></p>
+      <div class="lightbox-divider"></div>
+      <p id="lightbox-description"></p>
+      <button onclick="closeLightbox(); showSection('kaufen');"
+        style="margin-top:1rem; padding:0.6rem 1rem; border-radius:10px; border:2px solid var(--green); background:#111; color:var(--green); font-weight:700; cursor:pointer;">
+        Preis anfragen
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<section id="auktion" class="page-section app-section">
+  <div class="section-card">
+    <h2>Auktion</h2>
+    <div class="auction-grid">
+
+      <!-- AUKTION LINKS -->
+      <div class="auction-card">
+        <span class="auction-status" id="auction-status">Auktion wird geladen</span>
+
+        <!-- neutrales Bild -->
+        <img id="auction-art-image" class="auction-image" src="" alt="Auktionswerk" decoding="async">
+
+        <h3 id="auction-art-title">Tagesauktion</h3>
+
+        <!-- Startpreis bleibt -->
+        <div class="auction-price"><span id="highest-bid-amount">10</span> €</div>
+
+        <div class="auction-timer">
+          Endet in: <span id="auction-countdown">--:--:--</span>
+        </div>
+
+        <!-- LEERE WERKDATEN -->
+        <div class="auction-meta">
+          <div><strong>Werk:</strong> <span id="auction-meta-title">-</span></div>
+          <div><strong>Format:</strong> <span id="auction-meta-size">-</span></div>
+          <div><strong>Technik:</strong> <span id="auction-meta-materials">-</span></div>
+          <div><strong>Jahr:</strong> <span id="auction-meta-year">-</span></div>
+          <div><strong>Höchstbietende Person:</strong> <span id="highest-bidder-name">Noch kein Name angegeben</span></div>
+          <div><strong>Auktionsende:</strong> <span id="auction-end-at">-</span></div>
+        </div>
+
+        <p class="auction-note">
+          Das Auktionswerk wird hier manuell eingetragen. Werkdaten können leer bleiben, bis du sie selbst ergänzt.
+        </p>
+
+        <div class="notice-box">
+          Hinweis: Gebote sind Angebote. Ein Kaufvertrag kommt erst nach ausdrücklicher Bestätigung durch Otto de Booij zustande. Details stehen in den AGB &amp; Auktionsbedingungen.
+        </div>
+      </div>
+
+      <!-- RECHTS: FORMULAR -->
+      <div class="auction-card">
+        <h3>Gebot abgeben</h3>
+
+        <form class="buy-form" id="auction-form">
+
+          <!-- WERKAUSWAHL ENTFERNT -->
+          <!-- (bewusst gelöscht, da du das Werk vorgibst) -->
+
+          <div>
+            <label for="bidder-name">Ihr Name</label>
+            <input id="bidder-name" type="text" placeholder="Vor- und Nachname" required>
+          </div>
+
+          <div>
+            <label for="bidder-email">Ihre E-Mail</label>
+            <input id="bidder-email" type="email" placeholder="name@example.com" required>
+          </div>
+
+          <div>
+            <label for="bid-amount">Ihr Gebot in €</label>
+            <input id="bid-amount" type="number" min="10" step="1" placeholder="mind. 10 €" required>
+          </div>
+
+          <div>
+            <label for="bid-note">Notiz (optional)</label>
+            <textarea id="bid-note" rows="4" placeholder="Optional: Versand, Rückfrage, etc."></textarea>
+          </div>
+
+          <button type="submit">Gebot absenden</button>
+          <div class="form-feedback" id="auction-feedback"></div>
+        </form>
+
+        <div class="auction-actions">
+          <button class="ghost-btn" type="button" onclick="refreshAuctionData()">Auktionsdaten neu laden</button>
+        </div>
+
+        <h3 style="margin-top:1.25rem;">Gebotsverlauf</h3>
+        <ul class="bid-list" id="bid-history"></ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="ausstellungen" class="page-section app-section">
+  <div class="expos-wrapper">
+
+    <div class="expo-year-group" data-year="2025">
+      <h2 class="expo-year-heading">2025</h2>
+
+      <article class="expo-card">
+        <div class="expo-title">
+          <div class="name">As best as it gets</div>
+          <div class="year">19.12 – 25.01</div>
+        </div>
+        <div class="expo-carousel">
+          <div class="expo-track">
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/ASBESTASITGETS/1.JPG" alt="As best as it gets – Bild 1"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/ASBESTASITGETS/2.JPG" alt="As best as it gets – Bild 2"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/ASBESTASITGETS/3.JPG" alt="As best as it gets – Bild 3"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/ASBESTASITGETS/4.JPG" alt="As best as it gets – Bild 4"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/ASBESTASITGETS/5.JPG" alt="As best as it gets – Bild 5"></div>
+          </div>
+          <button class="expo-btn prev" aria-label="Zurück">‹</button>
+          <button class="expo-btn next" aria-label="Weiter">›</button>
+        </div>
+        <div class="expo-body">
+          <div class="expo-meta">Ort: Galerie Droste · Format: Ausstellung</div>
+          <p>Eine konzentrierte Setzung: neue Arbeiten im Dialog mit Raum, Abstand und Blickführung — irgendwo zwischen trockenem Witz und Ernst.</p>
+        </div>
+      </article>
+
+      <article class="expo-card">
+        <div class="expo-title">
+          <div class="name">Sommeraustellung 25'</div>
+          <div class="year">2025</div>
+        </div>
+        <div class="expo-carousel">
+          <div class="expo-track">
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/SOA2025/1.png" alt="Sommeraustellung 2025 – Bild 1"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/SOA2025/2.png" alt="Sommeraustellung 2025 – Bild 2"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/SOA2025/3.png" alt="Sommeraustellung 2025 – Bild 3"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/SOA2025/4.png" alt="Sommeraustellung 2025 – Bild 4"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/SOA2025/5.png" alt="Sommeraustellung 2025 – Bild 5"></div>
+          </div>
+          <button class="expo-btn prev" aria-label="Zurück">‹</button>
+          <button class="expo-btn next" aria-label="Weiter">›</button>
+        </div>
+        <div class="expo-body">
+          <div class="expo-meta">Ort: Karlsruhe · Format: Jahresauswahl</div>
+          <p>Jahresauswahl aktueller Arbeiten — Fokus auf neue Motive und Verdichtung der Serie.</p>
+        </div>
+      </article>
+
+      <article class="expo-card">
+        <div class="expo-title">
+          <div class="name">MALWARE</div>
+          <div class="year">08.03 – 28.03.2025</div>
+        </div>
+        <div class="expo-carousel">
+          <div class="expo-track">
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/MALWARE/1.png" alt="MALWARE – Bild 1"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/MALWARE/2.png" alt="MALWARE – Bild 2"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/MALWARE/3.png" alt="MALWARE – Bild 3"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/MALWARE/4.png" alt="MALWARE – Bild 4"></div>
+          </div>
+          <button class="expo-btn prev" aria-label="Zurück">‹</button>
+          <button class="expo-btn next" aria-label="Weiter">›</button>
+        </div>
+        <div class="expo-body">
+          <div class="expo-meta">Ort: Offspace56a Pforzheim · Format: Gruppenausstellung</div>
+          <p>Kompakte Offspace-Show: neue Arbeiten im Dialog mit Raum, Licht und Blickachsen.</p>
+        </div>
+      </article>
+
+      <article class="expo-card">
+        <div class="expo-title">
+          <div class="name">Luis Leu</div>
+          <div class="year">2025</div>
+        </div>
+        <div class="expo-carousel">
+          <div class="expo-track">
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/luisleu-1.jpg" alt="Luis Leu – Bild 1"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/luisleu-2.jpg" alt="Luis Leu – Bild 2"></div>
+          </div>
+          <button class="expo-btn prev" aria-label="Zurück">‹</button>
+          <button class="expo-btn next" aria-label="Weiter">›</button>
+        </div>
+        <div class="expo-body">
+          <div class="expo-meta">Ort: Karlsruhe · Format: Präsentation</div>
+          <p>Ein reduziertes Setup mit klaren Kontrasten — konzentriert auf Rhythmus und Kanten.</p>
+        </div>
+      </article>
+
+      <article class="expo-card">
+        <div class="expo-title">
+          <div class="name">EXTRAVAGANZA</div>
+          <div class="year">2025</div>
+        </div>
+        <div class="expo-carousel">
+          <div class="expo-track">
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/EXTRAVAGANZA/1.png" alt="EXTRAVAGANZA – Bild 1"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/EXTRAVAGANZA/2.jpg" alt="EXTRAVAGANZA – Bild 2"></div>
+          </div>
+          <button class="expo-btn prev" aria-label="Zurück">‹</button>
+          <button class="expo-btn next" aria-label="Weiter">›</button>
+        </div>
+        <div class="expo-body">
+          <div class="expo-meta">Ort: Karlsruhe · Format: Akademie/Präsentation</div>
+          <p>Präsentation größerer Leinwände und Experimente — zwischen Show und Skizze.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="expo-year-group" data-year="2024">
+      <h2 class="expo-year-heading">2024</h2>
+
+      <article class="expo-card">
+        <div class="expo-title">
+          <div class="name">ART Karlsruhe „,$‘s“</div><div class="year">2024</div>
+        </div>
+        <div class="expo-carousel">
+          <div class="expo-track">
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/ARTKARLSRUHE/1.png" alt="ART Karlsruhe 2024 – Bild 1"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/ARTKARLSRUHE/2.png" alt="ART Karlsruhe 2024 – Bild 2"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/ARTKARLSRUHE/3.png" alt="ART Karlsruhe 2024 – Bild 3"></div>
+          </div>
+          <button class="expo-btn prev" aria-label="Zurück">‹</button>
+          <button class="expo-btn next" aria-label="Weiter">›</button>
+        </div>
+        <div class="expo-body">
+          <div class="expo-meta">Ort: Academy Square, Messe ARTKarlsruhe · Halle 3</div>
+          <p>Stand mit „AUTHORITY LEADS THE PEOPLE“, 300×200 cm.</p>
+        </div>
+      </article>
+
+      <article class="expo-card">
+        <div class="expo-title"><div class="name">Sommeraustellung</div><div class="year">2024</div></div>
+        <div class="expo-carousel">
+          <div class="expo-track">
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/SOA2024/1.png" alt="Sommeraustellung 2024 – Bild 1"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/SOA2024/2.png" alt="Sommeraustellung 2024 – Bild 2"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/SOA2024/3.png" alt="Sommeraustellung 2024 – Bild 3"></div>
+          </div>
+          <button class="expo-btn prev" aria-label="Zurück">‹</button>
+          <button class="expo-btn next" aria-label="Weiter">›</button>
+        </div>
+        <div class="expo-body">
+          <div class="expo-meta">Ort: Karlsruhe · Format: Akademie/Jahresauswahl</div>
+          <p>Werke aus der Reihe „Wert & Individuum“ — erste Verdichtungen und neue Motive.</p>
+        </div>
+      </article>
+
+      <article class="expo-card">
+        <div class="expo-title"><div class="name">MATERIALVERSCHWENDUNG</div><div class="year">2024</div></div>
+        <div class="expo-carousel">
+          <div class="expo-track">
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/MATERIALVERSCHWENDUNG/1.png" alt="MATERIALVERSCHWENDUNG – Bild 1"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/MATERIALVERSCHWENDUNG/2.png" alt="MATERIALVERSCHWENDUNG – Bild 2"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/MATERIALVERSCHWENDUNG/3.png" alt="MATERIALVERSCHWENDUNG – Bild 3"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/MATERIALVERSCHWENDUNG/4.png" alt="MATERIALVERSCHWENDUNG – Bild 4"></div>
+          </div>
+          <button class="expo-btn prev" aria-label="Zurück">‹</button>
+          <button class="expo-btn next" aria-label="Weiter">›</button>
+        </div>
+        <div class="expo-body">
+          <div class="expo-meta">Ort: Kalinowskiraum · Format: Gruppenausstellung</div>
+          <p>Intimer Raum, reduzierte Setzung — Material, Oberfläche und Tempo im Fokus.</p>
+        </div>
+      </article>
+
+      <article class="expo-card">
+        <div class="expo-title"><div class="name">C4R – QOLABO Köln</div><div class="year">2024</div></div>
+        <div class="expo-carousel">
+          <div class="expo-track">
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/C4R/1.jpg" alt="QOLABO Köln 2024 – Bild 1"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/C4R/2.jpg" alt="QOLABO Köln 2024 – Bild 2"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/C4R/3.jpg" alt="QOLABO Köln 2024 – Bild 3"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/C4R/4.png" alt="QOLABO Köln 2024 – Bild 4"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/C4R/5.jpeg" alt="QOLABO Köln 2024 – Bild 5"></div>
+          </div>
+          <button class="expo-btn prev" aria-label="Zurück">‹</button>
+          <button class="expo-btn next" aria-label="Weiter">›</button>
+        </div>
+        <div class="expo-body">
+          <div class="expo-meta">Ort: QOLABO Lab Köln · Format: Gemeinschaftsausstellung</div>
+          <p>Gemeinschaftsausstellung – urbane Motive, klare Kollisionen und Nahsicht.</p>
+        </div>
+      </article>
+
+      <article class="expo-card">
+        <div class="expo-title"><div class="name">LICHTHOF</div><div class="year">2024</div></div>
+        <div class="expo-carousel">
+          <div class="expo-track">
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/LICHTHOF/1.png" alt="LICHTHOF – Bild 1"></div>
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/LICHTHOF/2.png" alt="LICHTHOF – Bild 2"></div>
+          </div>
+          <button class="expo-btn prev" aria-label="Zurück">‹</button>
+          <button class="expo-btn next" aria-label="Weiter">›</button>
+        </div>
+        <div class="expo-body">
+          <div class="expo-meta">Ort: Karlsruhe · Format: Gruppenausstellung</div>
+          <p>Gemeinschaftsausstellung — Lichtführung und Blickachsen als Teil der Hängung.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="expo-year-group" data-year="2023">
+      <h2 class="expo-year-heading">2023</h2>
+      <article class="expo-card">
+        <div class="expo-title"><div class="name">Bank of the world Estland</div><div class="year">2023</div></div>
+        <div class="expo-carousel">
+          <div class="expo-track">
+            <div class="expo-item"><img loading="lazy" decoding="async" src="IMAGE/EXPO/estonia-1.jpg" alt="Bank of the world Estland 2023 – Bild 1"></div>
+          </div>
+          <button class="expo-btn prev" aria-label="Zurück">‹</button>
+          <button class="expo-btn next" aria-label="Weiter">›</button>
+        </div>
+        <div class="expo-body">
+          <div class="expo-meta">Ort: Estland · Format: Station/Präsentation</div>
+          <p>Erste Station im Ausland – klare Typografien & große Flächen im Raum.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="kontakt" class="page-section app-section">
+  <div class="section-card">
+    <h2>Kontakt & Vita</h2>
+    <div style="display:grid; gap:1rem; grid-template-columns:1fr; max-width:900px;">
+      <div>
+        <p><strong>Otto de Booij</strong><br>Karlsruhe, Deutschland</p>
+        <p>
+          E-Mail privat: <a href="mailto:ottodebooij4@gmail.com">ottodebooij4@gmail.com</a><br>
+          E-Mail Akademie: <a href="mailto:otto.debooij@stud.kunstakademie-karlsruhe.de">otto.debooij@stud.kunstakademie-karlsruhe.de</a>
+        </p>
+      </div>
+      <div>
+        <h3 style="margin:0 0 0.5rem; color:var(--green);">Kurzvita</h3>
+        <ul style="margin:0; padding-left:1.1rem; font-family:Arial, sans-serif;">
+          <li>seit 2024: Neue Reihe „Wert & Individuum“</li>
+          <li>2024: Teilnahme – Art Karlsruhe (Werk: „AUTHORITY LEADS THE PEOPLE“)</li>
+          <li>Studium: Staatliche Akademie der Bildenden Künste Karlsruhe</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="kaufen" class="page-section app-section">
+  <div class="section-card">
+    <h2>Arbeit kaufen</h2>
+    <form class="buy-form" id="buy-form">
+      <div>
+        <label for="buyer-name">Ihr Name</label>
+        <input id="buyer-name" name="buyer-name" type="text" placeholder="Vor- und Nachname" required>
+      </div>
+      <div>
+        <label for="buyer-email">Ihre E-Mail</label>
+        <input id="buyer-email" name="buyer-email" type="email" placeholder="name@example.com" required>
+      </div>
+      <div>
+        <label for="artwork">Werk (Titel)</label>
+        <input id="artwork" name="artwork" type="text" placeholder="z. B. CHIAN" required>
+        <small>Trage hier den Werktitel ein, z. B. aus den Highlights.</small>
+      </div>
+      <div>
+        <label for="message">Nachricht (optional)</label>
+        <textarea id="message" name="message" rows="5" placeholder="Optionale Anmerkungen (Format, Versand, Besichtigung, etc.)"></textarea>
+      </div>
+      <button type="submit">Preis anfragen</button>
+      <small style="opacity:0.8;">Beim Absenden öffnet sich dein E-Mail-Programm mit einer vorformulierten Anfrage.</small>
+    </form>
+    <p class="section-hint">Besichtigung nach Absprache in Karlsruhe möglich. Versand/Transport europaweit.</p>
+  </div>
+</section>
+
+<section id="agb" class="page-section app-section">
+  <div class="section-card">
+    <h2>AGB &amp; Auktionsbedingungen</h2>
+    <p style="font-family:Arial, sans-serif;"><strong>Stand:</strong> 14.04.2026</p>
+
+    <div style="font-family:Arial, sans-serif;">
+      <h3>1. Geltungsbereich</h3>
+      <p>Diese Bedingungen gelten für Anfragen, Angebote, Auktionen und Verkäufe von Kunstwerken über diese Website sowie für den Kontakt per E-Mail.</p>
+
+      <h3>2. Darstellung der Werke</h3>
+      <p>Die Darstellung der Werke auf dieser Website stellt kein verbindliches Angebot zum Abschluss eines Kaufvertrages dar, sondern eine Aufforderung zur Abgabe eines Angebots.</p>
+
+      <h3>3. Auktionen und Gebote</h3>
+      <p>Ein abgegebenes Gebot stellt ein Angebot der bietenden Person dar. Das höchste Gebot führt nicht automatisch zum Vertragsschluss. Ein Kaufvertrag kommt erst zustande, wenn Otto de Booij das Gebot ausdrücklich annimmt oder die Verfügbarkeit und den Zuschlag schriftlich bestätigt.</p>
+
+      <h3>4. Tagesauktionen</h3>
+      <p>Werktags kann jeweils ein anderes Werk als Tagesauktion auf der Website erscheinen. Angaben zu Laufzeit, Startpreis, Verfügbarkeit und Auktionsende können für jedes Werk gesondert festgelegt werden.</p>
+
+      <h3>5. Preise und Zahlung</h3>
+      <p>Alle Preise und Gebote verstehen sich in Euro. Die Zahlung erfolgt nach individueller Absprache, in der Regel per Überweisung. Das Werk bleibt bis zur vollständigen Bezahlung Eigentum von Otto de Booij.</p>
+
+      <h3>6. Lieferung / Abholung</h3>
+      <p>Die Abholung erfolgt nach Vereinbarung in Karlsruhe. Versand oder Transport können individuell vereinbart werden. Kosten, Versandart und Gefahrübergang werden im jeweiligen Einzelfall abgestimmt.</p>
+
+      <h3>7. Widerruf</h3>
+      <p>Sofern gesetzliche Widerrufsrechte bestehen, gelten diese nach den gesetzlichen Vorschriften. Bei individuell vereinbarten oder speziell angefertigten Werken kann ein Widerrufsrecht ausgeschlossen sein.</p>
+
+      <h3>8. Urheberrecht</h3>
+      <p>Sämtliche Urheberrechte an den Werken, Abbildungen, Texten und sonstigen Inhalten verbleiben bei Otto de Booij. Mit dem Kauf eines Werkes werden keine Nutzungsrechte übertragen, soweit dies nicht ausdrücklich schriftlich vereinbart wurde.</p>
+
+      <h3>9. Haftung</h3>
+      <p>Es gilt die gesetzliche Haftung. Für leichte Fahrlässigkeit wird nur bei Verletzung wesentlicher Vertragspflichten gehaftet, soweit gesetzlich zulässig.</p>
+
+      <h3>10. Schlussbestimmungen</h3>
+      <p>Es gilt deutsches Recht. Sollten einzelne Bestimmungen dieser Bedingungen ganz oder teilweise unwirksam sein, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt.</p>
+    </div>
+  </div>
+</section>
+
+<section id="datenschutz" class="page-section app-section">
+  <div class="section-card">
+    <h2>Datenschutzerklärung</h2>
+    <div style="font-family:Arial, sans-serif;">
+      <p><strong>Stand:</strong> 14.04.2026</p>
+      <h3>1. Verantwortlicher</h3>
+      <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist Otto de Booij, Baumeisterstrasse 8, 76137 Karlsruhe, Deutschland, E-Mail: <a href="mailto:ottodebooij4@gmail.com">ottodebooij4@gmail.com</a>.</p>
+
+      <h3>2. Hosting</h3>
+      <p>Diese Website wird über Netlify gehostet. Beim Aufruf der Website können technisch erforderliche Daten wie IP-Adresse, Datum, Uhrzeit, Browsertyp und Zugriffsprotokolle verarbeitet werden, soweit dies für den sicheren Betrieb der Website erforderlich ist.</p>
+
+      <h3>3. Auktionen und Kontaktaufnahme</h3>
+      <p>Wenn Sie über das Auktionsformular oder per E-Mail Kontakt aufnehmen, werden die von Ihnen angegebenen Daten, insbesondere Name, E-Mail-Adresse, Werkbezug, Gebot und freiwillige Nachrichten, zur Bearbeitung Ihrer Anfrage bzw. zur Durchführung der Auktion verarbeitet.</p>
+
+      <h3>4. Speicherung von Gebotsdaten</h3>
+      <p>Gebotsdaten können über Netlify Functions an eine Supabase-Datenbank übertragen und dort gespeichert werden. Die Verarbeitung erfolgt ausschließlich zum Zweck der Durchführung und Dokumentation der Auktion sowie zur Kontaktaufnahme im Zusammenhang mit dem abgegebenen Gebot.</p>
+
+      <h3>5. Rechtsgrundlagen</h3>
+      <p>Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO zur Durchführung vorvertraglicher Maßnahmen und auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO für den sicheren Betrieb und die Organisation der Website.</p>
+
+      <h3>6. Ihre Rechte</h3>
+      <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung sowie auf Widerspruch gegen die Verarbeitung Ihrer personenbezogenen Daten im Rahmen der gesetzlichen Vorschriften.</p>
+
+      <h3>7. Kontakt für Datenschutzanfragen</h3>
+      <p>Datenschutzanfragen können an <a href="mailto:ottodebooij4@gmail.com">ottodebooij4@gmail.com</a> gerichtet werden.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="impressum">
+  <h2>Impressum</h2>
+  <p><strong>Name / Verantwortlich:</strong> Otto de Booij</p>
+  <p><strong>Anschrift:</strong> Baumeisterstrasse 8, 76137 Karlsruhe, Deutschland</p>
+  <p><strong>Kontakt:</strong><br>
+     E-Mail privat: <a href="mailto:ottodebooij4@gmail.com">ottodebooij4@gmail.com</a>
+  </p>
+  <p><strong>Rechtliches:</strong><br>
+     <a href="#" onclick="showSection('agb'); return false;">AGB</a> |
+     <a href="#" onclick="showSection('datenschutz'); return false;">Datenschutz</a>
+  </p>
+  <p><strong>Urheberrecht / Copyright:</strong><br>
+     Alle Inhalte dieser Website, insbesondere Texte, Fotos und Grafiken, sind urheberrechtlich geschützt.
+     Jede Verwendung, Vervielfältigung oder Veröffentlichung bedarf der vorherigen schriftlichen Zustimmung von Otto de Booij.
+     © 2025 Otto de Booij. Alle Rechte vorbehalten.
+  </p>
+</footer>
+
+<script>
+function showSection(id){
+  document.querySelectorAll('.app-section').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(id);
+  if(target){
+    target.classList.add('active');
+    window.scrollTo({top:0, left:0, behavior:'auto'});
+  }
+  requestAnimationFrame(()=> requestAnimationFrame(()=> layoutAll()));
+  if (typeof window.refreshExpoCarousels === 'function') {
+    requestAnimationFrame(()=> requestAnimationFrame(()=> window.refreshExpoCarousels()));
+  }
+  if (id === 'auktion' && typeof renderAuction === 'function') {
+    requestAnimationFrame(()=> {
+      renderAuction();
+      updateCountdown();
+    });
+  }
+  document.getElementById('menu-overlay')?.classList.remove('open');
+}
+
+function initRouter(){
+  showSection('highlights');
+  const overlay = document.getElementById('menu-overlay');
+  overlay?.querySelectorAll('a[data-target]').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      e.preventDefault();
+      showSection(a.getAttribute('data-target'));
+    });
+  });
+  document.getElementById('nav-burger')?.addEventListener('click', ()=>{
+    overlay?.classList.toggle('open');
+  });
+  overlay?.addEventListener('click', (e)=>{ if(e.target === overlay) overlay.classList.remove('open'); });
+}
+initRouter();
+
+function openLightbox(title,size,materials,year,description,src){
+  document.getElementById('lightbox-title').textContent=title;
+  document.getElementById('lightbox-size').textContent=size;
+  document.getElementById('lightbox-materials').textContent=materials;
+  document.getElementById('lightbox-year').textContent=year;
+  document.getElementById('lightbox-description').textContent=description;
+  document.getElementById('lightbox-img').src=src;
+  document.getElementById('lightbox').style.display='flex';
+  const artworkInput = document.getElementById('artwork');
+  if(artworkInput) artworkInput.value = title;
+  if (typeof prefillAuctionFromTitle === 'function') prefillAuctionFromTitle(title);
+}
+function closeLightbox(){ document.getElementById('lightbox').style.display='none'; }
+document.getElementById('lightbox')?.addEventListener('click', e => { if(e.target===e.currentTarget) closeLightbox(); });
+
+function masonry(grid){
+  const cs = window.getComputedStyle(grid);
+  const rowHeight = parseInt(cs.getPropertyValue('grid-auto-rows'));
+  const rowGap = parseInt(cs.getPropertyValue('gap'));
+  grid.querySelectorAll('.tile').forEach(tile=>{
+    const img = tile.querySelector('img');
+    if(!img) return;
+    const set = () => {
+      const h = img.getBoundingClientRect().height;
+      tile.style.gridRowEnd = "span " + Math.ceil((h + rowGap)/(rowHeight + rowGap));
+    };
+    if(img.complete && img.naturalWidth > 0) set();
+    else img.addEventListener('load', set, {once:true});
+  });
+}
+function layoutAll(){ document.querySelectorAll('.grid').forEach(masonry); }
+window.addEventListener('load', layoutAll);
+window.addEventListener('resize', layoutAll);
+
+function openMoreLightbox(){
+  const lb = document.getElementById('more-lightbox');
+  if(!lb) return;
+  lb.querySelectorAll('img[data-src]').forEach(img=>{
+    if(!img.getAttribute('src')){
+      img.setAttribute('src', img.getAttribute('data-src'));
+    }
+  });
+  lb.classList.add('open');
+  lb.setAttribute('aria-hidden','false');
+  const moreGrid = document.getElementById('more-grid');
+  if(moreGrid){
+    requestAnimationFrame(()=> requestAnimationFrame(()=> masonry(moreGrid)));
+    setTimeout(()=> masonry(moreGrid), 300);
+    setTimeout(()=> masonry(moreGrid), 900);
+  }
+}
+function closeMoreLightbox(){
+  const lb = document.getElementById('more-lightbox');
+  if(!lb) return;
+  lb.classList.remove('open');
+  lb.setAttribute('aria-hidden','true');
+}
+document.getElementById('more-lightbox')?.addEventListener('click', (e)=>{
+  if(e.target && e.target.id === 'more-lightbox') closeMoreLightbox();
+});
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape'){
+    if(document.getElementById('more-lightbox')?.classList.contains('open')) closeMoreLightbox();
+    else if(document.getElementById('lightbox')?.style.display === 'flex') closeLightbox();
+  }
+});
+
+
+
+const AUCTION_API_BASE = '/.netlify/functions';
+
+const auctionCatalog = [
+  {
+    id:'tageswerk',
+    title:'TAGESSCHAU 15/04/2026 ',
+    size:'150 x 70 cm',
+    materials:'Oil, Acrylic, Coal on Canvas',
+    year:'2026',
+    image:'IMAGE/TAGESWERK/1504.PNG',
+    startPrice:10
+  }
+];
+
+let selectedAuctionItemId = 'tageswerk';
+let auctionRuntime = { auction: null, bids: [], mode: 'preview', error: '' };
+let auctionPollHandle = null;
+
+function getAuctionItemById(itemId){
+  return auctionCatalog.find(item => item.id === itemId) || auctionCatalog[0];
+}
+function isBusinessDay(date){
+  const day = date.getDay();
+  return day >= 1 && day <= 5;
+}
+function getNextAuctionClose(date){
+  const close = new Date(date);
+  close.setSeconds(0, 0);
+  close.setHours(20, 0, 0, 0);
+  if (isBusinessDay(date) && date < close) return close.toISOString();
+  do {
+    close.setDate(close.getDate() + 1);
+    close.setHours(20, 0, 0, 0);
+  } while (!isBusinessDay(close));
+  return close.toISOString();
+}
+function formatBidTime(iso){
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '-';
+  return d.toLocaleString('de-DE', { dateStyle:'short', timeStyle:'short' });
+}
+function escapeHtml(str){
+  return String(str).replace(/[&<>'"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[m]));
+}
+function getAuctionFeedbackEl(){
+  return document.getElementById('auction-feedback');
+}
+function setAuctionFeedback(message){
+  const el = getAuctionFeedbackEl();
+  if (el) el.textContent = message || '';
+}
+function populateAuctionSelect(){
+  return;
+}
+function renderAuction(){
+  const item = getAuctionItemById(selectedAuctionItemId);
+  const auction = auctionRuntime.auction || {};
+  const bids = Array.isArray(auctionRuntime.bids) ? auctionRuntime.bids : [];
+  const highestBid = Number(auction.current_bid ?? item.startPrice ?? 0);
+  const highestBidEntry = bids[0] || null;
+  const artImage = document.getElementById('auction-art-image');
+  if(artImage){
+    if(item.image){
+      artImage.src = item.image;
+      artImage.alt = item.title || 'Auktionswerk';
+      artImage.style.display = 'block';
+    } else {
+      artImage.removeAttribute('src');
+      artImage.alt = 'Auktionswerk';
+      artImage.style.display = 'none';
+    }
+  }
+  document.getElementById('auction-art-title').textContent = item.title || 'Tagesauktion';
+  document.getElementById('auction-meta-title').textContent = item.title || '-';
+  document.getElementById('auction-meta-size').textContent = item.size || '-';
+  document.getElementById('auction-meta-materials').textContent = item.materials || '-';
+  document.getElementById('auction-meta-year').textContent = item.year || '-';
+  document.getElementById('highest-bid-amount').textContent = highestBid.toLocaleString('de-DE');
+  document.getElementById('highest-bidder-name').textContent = highestBidEntry?.bidder_name || 'Noch kein Name angegeben';
+  document.getElementById('auction-end-at').textContent = formatBidTime(auction.end_time || getNextAuctionClose(new Date()));
+  const statusEl = document.getElementById('auction-status');
+  const ended = auction.end_time ? Date.now() >= new Date(auction.end_time).getTime() : false;
+  if (auctionRuntime.mode === 'remote') {
+    statusEl.textContent = ended ? 'Auktion beendet' : 'Auktion live';
+  } else {
+    statusEl.textContent = 'Vorschau – Functions noch nicht verbunden';
+  }
+  const history = document.getElementById('bid-history');
+  history.innerHTML = '';
+  if(!bids.length){
+    const li = document.createElement('li');
+    li.textContent = auctionRuntime.mode === 'remote' ? 'Noch keine Gebote gespeichert.' : 'Noch keine Live-Daten verfügbar.';
+    history.appendChild(li);
+  } else {
+    bids.forEach((bid, index)=>{
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <div class="bid-top">
+          <span>${index === 0 ? 'Aktuell führend' : 'Gebot'}</span>
+          <span>${Number(bid.amount).toLocaleString('de-DE')} €</span>
+        </div>
+        <div>${escapeHtml(bid.bidder_name || 'Unbekannt')}</div>
+        <div class="bid-time">${formatBidTime(bid.created_at)}</div>
+      `;
+      history.appendChild(li);
+    });
+  }
+  const amountInput = document.getElementById('bid-amount');
+  if(amountInput) amountInput.min = String(Math.max(1, Math.floor(highestBid) + 1));
+}
+function updateCountdown(){
+  const targetIso = auctionRuntime.auction?.end_time || getNextAuctionClose(new Date());
+  const target = new Date(targetIso).getTime();
+  const el = document.getElementById('auction-countdown');
+  if(!el || Number.isNaN(target)) return;
+  const diff = target - Date.now();
+  if(diff <= 0){
+    el.textContent = '00:00:00';
+    return;
+  }
+  const hours = Math.floor(diff / 3600000);
+  const minutes = Math.floor((diff % 3600000) / 60000);
+  const seconds = Math.floor((diff % 60000) / 1000);
+  el.textContent = `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+}
+async function fetchAuctionState(slug){
+  const res = await fetch(`${AUCTION_API_BASE}/get-auction?slug=${encodeURIComponent(slug)}`, {
+    headers: { 'Accept': 'application/json' },
+    cache: 'no-store'
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data.error || 'Auktionsdaten konnten nicht geladen werden.');
+  }
+  return data;
+}
+async function loadAuctionForSelectedItem(options = {}){
+  const { preserveFeedback = true } = options;
+  const item = getAuctionItemById(selectedAuctionItemId);
+  try {
+    const data = await fetchAuctionState(item.id);
+    auctionRuntime = {
+      auction: data.auction || {
+        artwork_slug: item.id,
+        artwork_title: item.title || '',
+        current_bid: item.startPrice,
+        end_time: getNextAuctionClose(new Date())
+      },
+      bids: Array.isArray(data.bids) ? data.bids : [],
+      mode: 'remote',
+      error: ''
+    };
+    if (!preserveFeedback) setAuctionFeedback('');
+  } catch (err) {
+    auctionRuntime = {
+      auction: {
+        artwork_slug: item.id,
+        artwork_title: item.title || '',
+        current_bid: item.startPrice,
+        end_time: getNextAuctionClose(new Date())
+      },
+      bids: [],
+      mode: 'preview',
+      error: err.message || 'Die Live-Auktion ist noch nicht verbunden.'
+    };
+    if (!preserveFeedback) setAuctionFeedback('');
+    if (document.getElementById('auktion')?.classList.contains('active')) {
+      setAuctionFeedback('Live-Daten noch nicht verfügbar. Prüfe Netlify Functions und Supabase-Konfiguration.');
+    }
+  }
+  renderAuction();
+  updateCountdown();
+}
+async function refreshAuctionData(){
+  await loadAuctionForSelectedItem({ preserveFeedback:false });
+}
+function prefillAuctionFromTitle(title){
+  return;
+}
+async function submitAuctionBid(payload){
+  const res = await fetch(`${AUCTION_API_BASE}/place-bid`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data.error || 'Gebot konnte nicht gespeichert werden.');
+  }
+  return data;
+}
+(function initAuction(){
+  populateAuctionSelect();
+  renderAuction();
+  updateCountdown();
+  loadAuctionForSelectedItem({ preserveFeedback:true });
+  if (auctionPollHandle) clearInterval(auctionPollHandle);
+  auctionPollHandle = setInterval(() => {
+    if (document.getElementById('auktion')?.classList.contains('active')) {
+      loadAuctionForSelectedItem({ preserveFeedback:true });
+    }
+    updateCountdown();
+  }, 10000);
+  setInterval(updateCountdown, 1000);
+  const form = document.getElementById('auction-form');
+  form?.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const item = getAuctionItemById(selectedAuctionItemId);
+    const name = document.getElementById('bidder-name').value.trim();
+    const email = document.getElementById('bidder-email').value.trim();
+    const amount = Number(document.getElementById('bid-amount').value);
+    const note = document.getElementById('bid-note').value.trim();
+    const current = Number(auctionRuntime.auction?.current_bid ?? item.startPrice);
+    if(!name || !email || !Number.isFinite(amount)){
+      setAuctionFeedback('Bitte Name, E-Mail und ein gültiges Gebot eintragen.');
+      return;
+    }
+    if(amount <= current){
+      setAuctionFeedback(`Das Gebot muss höher als ${Number(current).toLocaleString('de-DE')} € sein.`);
+      return;
+    }
+    try {
+      await submitAuctionBid({ slug: item.id, name, email, amount, note });
+      setAuctionFeedback('Gebot erfolgreich gespeichert.');
+      form.reset();
+      await loadAuctionForSelectedItem({ preserveFeedback:true });
+    } catch (err) {
+      setAuctionFeedback(err.message || 'Gebot konnte nicht gespeichert werden.');
+    }
+  });
+})();
+
+(function(){
+  const form = document.getElementById('buy-form');
+  if(!form) return;
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('buyer-name').value.trim();
+    const email = document.getElementById('buyer-email').value.trim();
+    const artwork = document.getElementById('artwork').value.trim();
+    const msg = document.getElementById('message').value.trim();
+    if(!name || !email || !artwork){
+      alert('Bitte Name, E-Mail und Werktitel ausfüllen.');
+      return;
+    }
+    const to = 'ottodebooij4@gmail.com';
+    const subject = `Preisanfrage: ${artwork}`;
+    const bodyLines = [
+      `Hallo Otto,`,
+      ``,
+      `ich interessiere mich für das Werk: ${artwork}.`,
+      `Könntest du mir bitte den aktuellen Preis und die Verfügbarkeit mitteilen?`,
+      ``,
+      `Optionale Notiz: ${msg || '-'}`,
+      ``,
+      `Name: ${name}`,
+      `E-Mail: ${email}`,
+      ``,
+      `Vielen Dank und beste Grüße,`,
+      `${name}`
+    ];
+    const body = encodeURIComponent(bodyLines.join('\n'));
+    const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${body}`;
+    window.location.href = mailto;
+  });
+})();
+
+(function initExpoCarousels(){
+  function setHeightByImage(carousel, img){
+    if (!img) return;
+    const setNow = () => {
+      if (!(img.naturalWidth > 0 && img.naturalHeight > 0)) return;
+      const w = carousel.clientWidth || 0;
+      if (!w) return;
+      let h = Math.round(w * (img.naturalHeight / img.naturalWidth));
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      const maxH = isMobile ? parseInt(getComputedStyle(document.documentElement).getPropertyValue('--expo-maxh-mobile'))
+                            : parseInt(getComputedStyle(document.documentElement).getPropertyValue('--expo-maxh-desktop'));
+      h = Math.min(h, maxH);
+      carousel.style.height = h + 'px';
+    };
+    if (img.complete && img.naturalWidth > 0) setNow();
+    else img.addEventListener('load', setNow, { once:true });
+  }
+
+  document.querySelectorAll('.expo-card').forEach((card)=>{
+    const carousel = card.querySelector('.expo-carousel');
+    const track    = card.querySelector('.expo-track');
+    const items    = Array.from(card.querySelectorAll('.expo-item'));
+    const prev     = card.querySelector('.expo-btn.prev');
+    const next     = card.querySelector('.expo-btn.next');
+    if(!carousel || !track || items.length === 0 || !prev || !next) return;
+
+    let i = 0;
+    const clamp = n => Math.max(0, Math.min(n, items.length - 1));
+    const currentImg = () => items[i]?.querySelector('img');
+
+    function fitToCurrent(){
+      const img = currentImg();
+      if (!img) return;
+      setHeightByImage(carousel, img);
+    }
+
+    function update(){
+      track.style.transform = `translateX(-${(i*100).toFixed(3)}%)`;
+      prev.disabled = (i === 0);
+      next.disabled = (i === items.length - 1);
+      fitToCurrent();
+    }
+
+    prev.addEventListener('click', ()=>{ i = clamp(i - 1); update(); });
+    next.addEventListener('click', ()=>{ i = clamp(i + 1); update(); });
+
+    let startX=0, dx=0, active=false;
+    const onStart=x=>{ active=true; startX=x; dx=0; };
+    const onMove =x=>{ if(active) dx = x - startX; };
+    const onEnd  =()=>{
+      if(!active) return;
+      const t = (carousel.clientWidth || 0) * 0.15;
+      if(dx < -t) i = clamp(i + 1);
+      if(dx >  t) i = clamp(i - 1);
+      active=false; update();
+    };
+    track.addEventListener('touchstart', e=>onStart(e.touches[0].clientX), {passive:true});
+    track.addEventListener('touchmove',  e=>onMove(e.touches[0].clientX),  {passive:true});
+    track.addEventListener('touchend',   onEnd);
+
+    carousel.__refresh = fitToCurrent;
+
+    requestAnimationFrame(()=>{ update(); requestAnimationFrame(fitToCurrent); });
+    window.addEventListener('resize', fitToCurrent);
+    window.addEventListener('orientationchange', ()=> requestAnimationFrame(fitToCurrent));
+  });
+
+  window.refreshExpoCarousels = function(){
+    document.querySelectorAll('.expo-carousel').forEach(c=>{
+      if (typeof c.__refresh === 'function') c.__refresh();
+    });
+  };
+})();
+</script>
+
+</body>
+</html>
