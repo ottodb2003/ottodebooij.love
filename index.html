@@ -667,6 +667,80 @@ section[id]{ scroll-margin-top:72px; }
   .auction-grid{ grid-template-columns:1fr; }
 }
 
+/* ===== HOME AUKTION TEASER ===== */
+.home-auction-wrap{
+  padding:1.5rem 1rem 2.5rem;
+}
+
+.home-auction-card{
+  max-width:900px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:1rem;
+  align-items:center;
+  border:2px solid rgba(255,0,255,.35);
+  border-radius:16px;
+  padding:1rem;
+  background:rgba(255,255,255,.92);
+  box-shadow:0 0 20px rgba(255,0,255,.12), 0 0 18px rgba(57,255,20,.12);
+}
+
+.home-auction-media img{
+  width:100%;
+  display:block;
+  border-radius:12px;
+  border:2px solid var(--pink);
+  object-fit:cover;
+}
+
+.home-auction-kicker{
+  font-family:'Yeezy TStar Bold', sans-serif;
+  font-size:1rem;
+  color:var(--pink);
+  letter-spacing:.4px;
+  margin-bottom:.25rem;
+}
+
+.home-auction-content h3{
+  margin:.15rem 0 .75rem;
+  font-size:1.5rem;
+  color:#111;
+}
+
+.home-auction-meta{
+  display:grid;
+  gap:.45rem;
+  font-family:Arial, sans-serif;
+  margin-bottom:1rem;
+}
+
+.home-auction-button{
+  padding:.75rem 1rem;
+  border-radius:10px;
+  border:2px solid var(--green);
+  background:#111;
+  color:var(--green);
+  font-weight:700;
+  cursor:pointer;
+}
+
+.home-auction-button:hover{
+  box-shadow:0 0 12px rgba(57,255,20,.35);
+}
+
+@media (max-width:768px){
+  .home-auction-card{
+    grid-template-columns:1fr;
+  }
+
+  .home-auction-media{
+    max-width:320px;
+    width:100%;
+    margin:0 auto;
+  }
+}
+
 
 /* ===== Formular ===== */
 .buy-form{ max-width:720px; margin:0 auto; display:grid; gap:.8rem; }
@@ -757,6 +831,34 @@ section[id]{ scroll-margin-top:72px; }
       </p>
     </div>
   </section>
+
+  <div class="home-auction-wrap">
+    <div class="home-auction-card">
+      <div class="home-auction-media">
+        <img id="home-auction-image" src="" alt="Tageswerk Auktion" decoding="async">
+      </div>
+
+      <div class="home-auction-content">
+        <div class="home-auction-kicker">TAGESAUKTION</div>
+        <h3 id="home-auction-title">Tageswerk</h3>
+
+        <div class="home-auction-meta">
+          <div>
+            <strong>Countdown:</strong>
+            <span id="home-auction-countdown">--:--:--</span>
+          </div>
+          <div>
+            <strong>Höchstes Gebot:</strong>
+            <span id="home-highest-bid">10 €</span>
+          </div>
+        </div>
+
+        <button class="home-auction-button" onclick="showSection('auktion')">
+          Zur Auktion
+        </button>
+      </div>
+    </div>
+  </div>
 
   <div class="grid" id="grid-top">
     <div class="tile" onclick="openLightbox('TOLLWUT','240 x 100cm','Acryl auf Leinwand','2025','TOLLWUT wirkt wie ein überdrehtes Warnsignal: grell, laut und trotzdem präzise gesetzt – als hätte die Leinwand kurz Fieber bekommen.','IMAGE/TOLLWUT.png')">
@@ -1039,6 +1141,8 @@ section[id]{ scroll-margin-top:72px; }
       </button>
     </div>
   </div>
+
+
 </section>
 
 
@@ -1647,6 +1751,27 @@ function setAuctionFeedback(message){
 function populateAuctionSelect(){
   return;
 }
+function renderHomeAuctionTeaser(){
+  const item = getAuctionItemById(selectedAuctionItemId);
+  const highestBid = Number(auctionRuntime.auction?.current_bid ?? item.startPrice ?? 0);
+
+  const imgEl = document.getElementById('home-auction-image');
+  const titleEl = document.getElementById('home-auction-title');
+  const bidEl = document.getElementById('home-highest-bid');
+
+  if(imgEl){
+    imgEl.src = item.image || '';
+    imgEl.alt = item.title || 'Tageswerk Auktion';
+  }
+
+  if(titleEl){
+    titleEl.textContent = item.title || 'Tageswerk';
+  }
+
+  if(bidEl){
+    bidEl.textContent = `${highestBid.toLocaleString('de-DE')} €`;
+  }
+}
 function renderAuction(){
   const item = getAuctionItemById(selectedAuctionItemId);
   const auction = auctionRuntime.auction || {};
@@ -1702,21 +1827,30 @@ function renderAuction(){
   }
   const amountInput = document.getElementById('bid-amount');
   if(amountInput) amountInput.min = String(Math.max(1, Math.floor(highestBid) + 1));
+
+  renderHomeAuctionTeaser();
 }
 function updateCountdown(){
   const targetIso = auctionRuntime.auction?.end_time || getNextAuctionClose(new Date());
   const target = new Date(targetIso).getTime();
+
   const el = document.getElementById('auction-countdown');
-  if(!el || Number.isNaN(target)) return;
+  const homeEl = document.getElementById('home-auction-countdown');
+
+  if(Number.isNaN(target)) return;
+
+  let text = '00:00:00';
   const diff = target - Date.now();
-  if(diff <= 0){
-    el.textContent = '00:00:00';
-    return;
+
+  if(diff > 0){
+    const hours = Math.floor(diff / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+    text = `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
   }
-  const hours = Math.floor(diff / 3600000);
-  const minutes = Math.floor((diff % 3600000) / 60000);
-  const seconds = Math.floor((diff % 60000) / 1000);
-  el.textContent = `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+
+  if(el) el.textContent = text;
+  if(homeEl) homeEl.textContent = text;
 }
 async function fetchAuctionState(slug){
   const res = await fetch(`${AUCTION_API_BASE}/get-auction?slug=${encodeURIComponent(slug)}`, {
